@@ -1,0 +1,1 @@
+# whmcs-addon-reseller-license-api-integration
