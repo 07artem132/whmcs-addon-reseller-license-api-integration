@@ -6,6 +6,12 @@
  * Time: 22:35
  */
 
+require __DIR__ . '/vendor/autoload.php';
+
+//use LicensingAPIServiceVoice\Lib\LicensingController;
+use LicensingAPIServiceVoice\Lib\PageController;
+use LicensingAPIServiceVoice\Lib\ConfigController;
+
 function LicensingAPIServiceVoice_config() {
 	$configarray = [
 		"name"        => "Licensing API service-voice",
@@ -21,9 +27,22 @@ function LicensingAPIServiceVoice_config() {
 }
 
 
-function LicensingAPIServiceVoice_output($vars) {
-	$modulelink = $vars['modulelink'];
-	$version = $vars['version'];
-	$LANG = $vars['_lang'];
+function LicensingAPIServiceVoice_output( $vars ) {
+	try {
+		$PageController = new PageController();
+		$PageController->SetVar( 'basheURL', $vars['modulelink'] );
 
+		if ( isset( $_GET['page'] ) && ! empty( $_GET['page'] ) ) {
+			return $PageController->BildPage( $_GET['page'] );
+		}
+
+		if ( ConfigController::GetInstallStatus() ) {
+			return $PageController->BildPage( 'welcome' );
+		} else {
+			return $PageController->BildPage( 'dashboard' );
+		}
+
+	} catch ( \Exception $e ) {
+		echo $e->getMessage();
+	}
 }
