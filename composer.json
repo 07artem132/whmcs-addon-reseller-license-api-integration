@@ -1,0 +1,11 @@
+{
+  "require": {
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "autoload": {
+    "psr-0": {
+      "LicensingAPIServiceVoice\\Lib\\": "../",
+      "LicensingAPIServiceVoice\\Page\\": "../"
+    }
+  }
+}
